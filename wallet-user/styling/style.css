@@ -1,3 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -5,7 +11,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
 body::before {
@@ -30,7 +35,7 @@ body::before {
     width: 300px;
 }
 
-#loginForm {
+.loginForm {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -47,23 +52,18 @@ input {
 .button-group {
     display: flex;
     justify-content: flex-start;
-    gap: 100px;
-    margin-top: 10px;
+    align-items: center;
+    gap:100px;
+    margin-top: 0px;
+    font-size: 14px;
 }
 
-.signup-button{
-        background: none;
-        border: none;
-        color: #0f43d4;
-        font-size: 14px;
-        text-decoration: underline;
-        cursor: pointer;
-        padding: 5px;
-}
-
-.signup-button:hover {
-    color: #072f9c;
-    background-color: #ffffff;
+.signup-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    width: 320px;
 }
 
 button {
@@ -74,7 +74,7 @@ button {
     border: none;
     color: white;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 10px;
 }
 
@@ -84,4 +84,13 @@ button:hover {
 
 p {
     margin-top: 10px;
+}
+
+p a {
+    color: #0f43d4;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
 }
