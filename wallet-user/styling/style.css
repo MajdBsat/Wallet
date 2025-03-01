@@ -44,6 +44,28 @@ input {
     border-radius: 10px;
 }
 
+.button-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 100px;
+    margin-top: 10px;
+}
+
+.signup-button{
+        background: none;
+        border: none;
+        color: #0f43d4;
+        font-size: 14px;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 5px;
+}
+
+.signup-button:hover {
+    color: #072f9c;
+    background-color: #ffffff;
+}
+
 button {
     width: 50%;
     padding: 10px;
@@ -51,6 +73,7 @@ button {
     background-color: #0f43d4;
     border: none;
     color: white;
+    cursor: pointer;
     font-size: 16px;
     border-radius: 10px;
 }
