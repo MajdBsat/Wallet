@@ -6,6 +6,7 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Headers: Content-Type");
 
 include("../../connection/connection.php");
+include("../../models/user.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = json_decode(file_get_contents("php://input"), true) ?? [];
@@ -14,23 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = trim($data['email']);
         $password = trim($data['password']);
 
-        $checkQuery = "SELECT id, name, email, phone_number, pass, FROM users WHERE email = ?";
-        $query = $conn->prepare($checkQuery);
-        $query->bind_param("s", $email);
-        $query->execute();
-        $result = $query->get_result();
-
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-
-            if (password_verify($password, $user['password'])) {
-                echo json_encode(["status" => "success", "message" => "Login successful.", "user" => $user]);
-            } else {
-                echo json_encode(["status" => "error", "message" => "Invalid password."]);
-            }
-        } else {
-            echo json_encode(["status" => "error", "message" => "No user found with that email."]);
-        }
+        // Initialize User class
+        $user = new User($conn);
+        echo $user->signIn($email, $password);
     } else {
         echo json_encode(["status" => "error", "message" => "Email and password are required."]);
     }
