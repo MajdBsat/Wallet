@@ -1,27 +1,33 @@
 <?php
 
-include("../connection/connection.php")
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Content-Type: application/json");
+header("Access-Control-Allow-Headers: Content-Type");
+
+include("../../connection/connection.php");
+
+$data = json_decode(file_get_contents("php://input"), true) ?? [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST["name"], $_POST["email"], $_POST["phone"], $_POST["password"])) {
-        $name = trim($_POST["name"]);
-        $email = trim($_POST["email"]);
-        $phone = trim($_POST["phone"]);
-        $password = password_hash(trim($_POST["password"]), PASSWORD_DEFAULT);
+    if (isset($data["name"], $data["email"], $data["phone"], $data["password"])) {
+        $name = trim($data["name"]);
+        $email = trim($data["email"]);
+        $phone = trim($data["phone"]);
+        $password = password_hash(trim($data["password"]), PASSWORD_DEFAULT);
 
         $checkQuery = "SELECT id FROM users WHERE email = ?";
         $query = $conn->prepare($checkQuery);
         $query->bind_param("s", $email);
         $query->execute();
-        $result = $query->get_result();
-        $existingUser = $result->fetch_assoc();
+        $query->store_result();
 
-        if ($existingUser) {
+        if ($query->num_rows > 0) {
             echo json_encode(["status" => "error", "message" => "Email already registered."]);
             exit;
         }
 
-        $insertQuery = "INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO users (name, email, phone_number, pass) VALUES (?, ?, ?, ?)";
         $query = $conn->prepare($insertQuery);
         $query->bind_param("ssss", $name, $email, $phone, $password);
 
