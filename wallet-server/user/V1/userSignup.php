@@ -1,11 +1,12 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Headers: Content-Type");
 
 include("../../connection/connection.php");
+include("../../models/user.php");
 
 $data = json_decode(file_get_contents("php://input"), true) ?? [];
 
@@ -14,28 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $name = trim($data["name"]);
         $email = trim($data["email"]);
         $phone = trim($data["phone"]);
-        $password = password_hash(trim($data["password"]), PASSWORD_DEFAULT);
+        $password = trim($data["password"]);
 
-        $checkQuery = "SELECT id FROM users WHERE email = ?";
-        $query = $conn->prepare($checkQuery);
-        $query->bind_param("s", $email);
-        $query->execute();
-        $query->store_result();
-
-        if ($query->num_rows > 0) {
-            echo json_encode(["status" => "error", "message" => "Email already registered."]);
-            exit;
-        }
-
-        $insertQuery = "INSERT INTO users (name, email, phone_number, pass) VALUES (?, ?, ?, ?)";
-        $query = $conn->prepare($insertQuery);
-        $query->bind_param("ssss", $name, $email, $phone, $password);
-
-        if ($query->execute()) {
-            echo json_encode(["status" => "success", "message" => "User registered successfully."]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "Registration failed. Try again."]);
-        }
+        $user = new User($conn);
+        echo $user->signUp($name, $email, $phone, $password);
     } else {
         echo json_encode(["status" => "error", "message" => "All fields are required."]);
     }
