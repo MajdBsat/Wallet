@@ -24,7 +24,7 @@ class Wallet
             return $this->responseError("User ID and wallet name are required.");
         }
 
-        $checkQuery = $this->conn->prepare("SELECT id FROM wallets WHERE user_id = ? AND name = ?");
+        $checkQuery = $this->conn->prepare("SELECT id FROM wallets WHERE user_id = ? AND wallet_name = ?");
         $checkQuery->bind_param("is", $userId, $walletName);
         $checkQuery->execute();
         $checkResult = $checkQuery->get_result();
@@ -34,7 +34,7 @@ class Wallet
         }
 
         $balance = 0;
-        $query = $this->conn->prepare("INSERT INTO wallets (user_id, name, balance) VALUES (?, ?, ?)");
+        $query = $this->conn->prepare("INSERT INTO wallets (user_id, wallet_name, balance) VALUES (?, ?, ?)");
         $query->bind_param("isi", $userId, $walletName, $balance);
         $success = $query->execute();
 
@@ -42,7 +42,7 @@ class Wallet
             return $this->responseSuccess("Wallet created successfully", [
                 "wallet_id" => $this->conn->insert_id,
                 "user_id" => $userId,
-                "name" => $walletName,
+                "wallet_name" => $walletName,
                 "balance" => $balance
             ]);
         } else {
@@ -56,7 +56,7 @@ class Wallet
             return $this->responseError("User ID and wallet name are required.");
         }
 
-        $checkQuery = $this->conn->prepare("SELECT id FROM wallets WHERE user_id = ? AND name = ?");
+        $checkQuery = $this->conn->prepare("SELECT id FROM wallets WHERE user_id = ? AND wallet_name = ?");
         $checkQuery->bind_param("is", $userId, $walletName);
         $checkQuery->execute();
         $checkResult = $checkQuery->get_result();
@@ -65,7 +65,7 @@ class Wallet
             return $this->responseError("Wallet not found or does not belong to the user.");
         }
 
-        $query = $this->conn->prepare("DELETE FROM wallets WHERE user_id = ? AND name = ?");
+        $query = $this->conn->prepare("DELETE FROM wallets WHERE user_id = ? AND wallet_name = ?");
         $query->bind_param("is", $userId, $walletName);
         $success = $query->execute();
 
@@ -78,7 +78,7 @@ class Wallet
             return $this->responseError("User ID, wallet name, and a valid deposit amount are required.");
         }
 
-        $checkQuery = $this->conn->prepare("SELECT id, balance FROM wallets WHERE user_id = ? AND name = ?");
+        $checkQuery = $this->conn->prepare("SELECT id, balance FROM wallets WHERE user_id = ? AND wallet_name = ?");
         $checkQuery->bind_param("is", $userId, $walletName);
         $checkQuery->execute();
         $checkResult = $checkQuery->get_result();
@@ -90,7 +90,7 @@ class Wallet
         $wallet = $checkResult->fetch_assoc();
         $newBalance = $wallet["balance"] + $amount;
 
-        $updateQuery = $this->conn->prepare("UPDATE wallets SET balance = ? WHERE user_id = ? AND name = ?");
+        $updateQuery = $this->conn->prepare("UPDATE wallets SET balance = ? WHERE user_id = ? AND wallet_name = ?");
         $updateQuery->bind_param("iis", $newBalance, $userId, $walletName);
         $success = $updateQuery->execute();
 
