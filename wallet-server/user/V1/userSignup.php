@@ -8,7 +8,8 @@ header("Access-Control-Allow-Headers: Content-Type");
 include("../../connection/connection.php");
 include("../../models/user.php");
 
-$data = json_decode(file_get_contents("php://input"), true) ?? [];
+$data = json_decode(file_get_contents("php://input"), true);
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($data["name"], $data["email"], $data["phone"], $data["password"])) {
