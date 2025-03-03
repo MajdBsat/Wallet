@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = trim($data['email']);
         $password = trim($data['password']);
 
-        // Initialize User class
         $user = new User($conn);
         echo $user->signIn($email, $password);
     } else {
