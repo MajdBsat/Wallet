@@ -95,9 +95,9 @@ class Transaction
         }
     }
     
-    public function getTransactionsByUser($userId)
-    {
-        $query = $this->conn->prepare("SELECT t.* FROM transactions t INNER JOIN wallets w ON t.sender_wallet_id = w.id OR t.recipient_wallet_id = w.id WHERE w.user_id = ? ORDER BY t.transaction_time DESC");
+    public function getTransactionsByUser($userId){
+        $query = $this->conn->prepare("SELECT t.recipient_wallet_email, t.recipient_wallet_name, t.amount, t.transaction_time FROM transactions t WHERE t.sender_wallet_id IN (SELECT id FROM wallets WHERE user_id = ?) ORDER BY t.transaction_time DESC");
+
         $query->bind_param("i", $userId);
         $query->execute();
         $result = $query->get_result();
@@ -107,7 +107,8 @@ class Transaction
             $transactions[] = $transaction;
         }
 
-        return !empty($transactions) ? $this->responseSuccess("Transactions retrieved successfully.", $transactions) : $this->responseError("No transactions found.");
+        return !empty($transactions) 
+            ? $this->responseSuccess("Transactions retrieved successfully.", $transactions) : $this->responseError("No transactions found.");
     }
 }
 ?>
