@@ -107,6 +107,37 @@ class Wallet
                         : $this->responseError("Failed to deposit money.");
     }
 
+    public function withdrawMoney($userId, $walletName, $amount){
+
+        if (empty($userId) || empty($walletName) || empty($amount) || $amount <= 0) {
+            return $this->responseError("User ID, wallet name, and a valid withdrawal amount are required.");
+        }
+
+        $checkQuery = $this->conn->prepare("SELECT id, balance FROM wallets WHERE user_id = ? AND wallet_name = ?");
+        $checkQuery->bind_param("is", $userId, $walletName);
+        $checkQuery->execute();
+        $checkResult = $checkQuery->get_result();
+
+        if ($checkResult->num_rows === 0) {
+            return $this->responseError("Wallet not found.");
+        }
+
+        $wallet = $checkResult->fetch_assoc();
+        $currentBalance = $wallet["balance"];
+
+        if ($amount > $currentBalance) {
+            return $this->responseError("Insufficient funds.");
+        }
+
+        $newBalance = $currentBalance - $amount;
+        $updateQuery = $this->conn->prepare("UPDATE wallets SET balance = ? WHERE user_id = ? AND wallet_name = ?");
+        $updateQuery->bind_param("iis", $newBalance, $userId, $walletName);
+        $success = $updateQuery->execute();
+
+        return $success ? $this->responseSuccess("Withdrawal successful.", ["wallet_name" => $walletName, "new_balance" => $newBalance]): $this->responseError("Failed to withdraw money.");
+    }
+
+
     public function getUserWallets($userId)
     {
         if (empty($userId)) {

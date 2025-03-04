@@ -1,11 +1,11 @@
-*{  /*reset layout*/
+*{
     margin: 0;
     padding: 0;
     border: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Helvetica, Times, serif;
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
