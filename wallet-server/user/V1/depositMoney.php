@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $amount = trim($data['amount']);
 
         $wallet = new Wallet($conn);
-        
         echo $wallet->depositMoney($userId, $walletName, $amount);
     } else {
         echo json_encode(["status" => "error", "message" => "User ID, wallet name, and amount are required."]);

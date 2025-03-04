@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $walletName = trim($data['wallet_name']);
 
         $wallet = new Wallet($conn);
-
         echo $wallet->createWallet($userId, $walletName);
     } else {
         echo json_encode(["status" => "error", "message" => "User ID and wallet name are required."]);

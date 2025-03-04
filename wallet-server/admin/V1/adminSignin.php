@@ -10,13 +10,12 @@ include("../../models/Admin.php");
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$admin = new Admin($conn);
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($data["email"], $data["password"])) {
         $email = trim($data["email"]);
         $password = trim($data["password"]);
         
+        $admin = new Admin($conn);
         echo $admin->signIn($email, $password);
     } else {
         echo json_encode(["status" => "error", "message" => "Email and password are required."]);

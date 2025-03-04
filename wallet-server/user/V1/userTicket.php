@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $description = trim($data['description']);
 
         $ticket = new Ticket($conn);
-        
         echo $ticket->createTicket($userEmail, $subject, $description);
     } else {
         echo json_encode(["status" => "error", "message" => "User email, subject, and description are required."]);

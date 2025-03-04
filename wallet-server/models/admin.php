@@ -28,7 +28,7 @@ class Admin
         return json_encode(["status" => "error", "message" => $message]);
     }
 
-    public function signUp($email, $phoneNumber, $password){
+    public function signUp($name, $email, $phoneNumber, $password){
 
         $query = $this->conn->prepare("SELECT id FROM admins WHERE email = ? OR phone_number = ?");
         $query->bind_param("ss", $email, $phoneNumber);
@@ -42,13 +42,14 @@ class Admin
 
         $hashedPassword = $this->hashPassword($password);
 
-        $query = $this->conn->prepare("INSERT INTO admins (email, phone_number, pass) VALUES (?, ?, ?)");
-        $query->bind_param("sss", $email, $phoneNumber, $hashedPassword);
+        $query = $this->conn->prepare("INSERT INTO admins (name, email, phone_number, pass) VALUES (?, ?, ?, ?)");
+        $query->bind_param("ssss", $name, $email, $phoneNumber, $hashedPassword);
         $success = $query->execute();
 
         if ($success) {
             return $this->responseSuccess("Admin added successfully", [
                 "id" => $this->conn->insert_id,
+                "name" => $name,
                 "email" => $email,
                 "phone_number" => $phoneNumber
             ]);
@@ -56,6 +57,7 @@ class Admin
             return $this->responseError("Failed to sign up Admin");
         }
     }
+
 
 
     public function signIn($email, $password){
@@ -156,7 +158,7 @@ class Admin
     }
 
     public function getAllTickets(){
-        $query = $this->conn->prepare("SELECT user_email, subject, description, ticket_time FROM tickets ORDER BY created_at DESC");
+        $query = $this->conn->prepare("SELECT user_email, subject, description, ticket_time FROM tickets ORDER BY ticket_time DESC");
         $query->execute();
         $result = $query->get_result();
 
