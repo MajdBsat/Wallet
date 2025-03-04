@@ -28,44 +28,49 @@ class Admin
         return json_encode(["status" => "error", "message" => $message]);
     }
 
-    public function signUp($email, $password)
-    {
-        $query = $this->conn->prepare("SELECT id FROM Admins WHERE email = ?");
-        $query->bind_param("s", $email);
+    public function signUp($email, $phoneNumber, $password){
+
+        $query = $this->conn->prepare("SELECT id FROM admins WHERE email = ? OR phone_number = ?");
+        $query->bind_param("ss", $email, $phoneNumber);
         $query->execute();
         $result = $query->get_result();
 
         if ($result->num_rows > 0) {
-            return $this->responseError("Admin already exists");
+            return $this->responseError("Admin already exists with this email or phone number");
         }
         $query->close();
 
         $hashedPassword = $this->hashPassword($password);
 
-        $query = $this->conn->prepare("INSERT INTO Admins (email, password) VALUES (?, ?)");
-        $query->bind_param("ss", $email, $hashedPassword);
+        $query = $this->conn->prepare("INSERT INTO admins (email, phone_number, pass) VALUES (?, ?, ?)");
+        $query->bind_param("sss", $email, $phoneNumber, $hashedPassword);
         $success = $query->execute();
 
         if ($success) {
-            return $this->responseSuccess("Admin added successfully", ["id" => $this->conn->insert_id, "email" => $email]);
+            return $this->responseSuccess("Admin added successfully", [
+                "id" => $this->conn->insert_id,
+                "email" => $email,
+                "phone_number" => $phoneNumber
+            ]);
         } else {
-            return $this->responseError("Failed to signup Admin");
+            return $this->responseError("Failed to sign up Admin");
         }
     }
 
-    public function signIn($email, $password)
-    {
+
+    public function signIn($email, $password){
+
         if (empty($email) || empty($password)) {
             return $this->responseError("Missing field is required.");
         }
 
-        $query = $this->conn->prepare("SELECT id, password FROM Admins WHERE email = ?");
+        $query = $this->conn->prepare("SELECT id, pass FROM admins WHERE email = ?");
         $query->bind_param("s", $email);
         $query->execute();
         $result = $query->get_result();
         $Admin = $result->fetch_assoc();
 
-        if ($Admin && $this->verifyPassword($password, $Admin["password"])) {
+        if ($Admin && $this->verifyPassword($password, $Admin["pass"])) {
             return $this->responseSuccess("Sign in successful", ["id" => $Admin["id"], "email" => $email]);
         } else {
             return $this->responseError("Wrong Email or Password");
@@ -78,7 +83,7 @@ class Admin
             return $this->responseError("Missing field is required.");
         }
 
-        $query = $this->conn->prepare("SELECT id FROM Admins WHERE id = ?");
+        $query = $this->conn->prepare("SELECT id FROM admins WHERE id = ?");
         $query->bind_param("i", $id);
         $query->execute();
         $result = $query->get_result();
@@ -88,7 +93,7 @@ class Admin
         }
 
         $hashedPassword = $this->hashPassword($newPassword);
-        $query = $this->conn->prepare("UPDATE Admins SET password = ? WHERE id = ?");
+        $query = $this->conn->prepare("UPDATE admins SET pass = ? WHERE id = ?");
         $query->bind_param("si", $hashedPassword, $id);
         $success = $query->execute();
 
@@ -97,7 +102,7 @@ class Admin
 
     public function getAllAdmins()
     {
-        $query = $this->conn->prepare("SELECT * FROM Admins ORDER BY id DESC");
+        $query = $this->conn->prepare("SELECT * FROM admins ORDER BY id DESC");
         $query->execute();
         $result = $query->get_result();
         $Admins = [];
@@ -143,11 +148,26 @@ class Admin
             return $this->responseError("Admin ID is missing");
         }
 
-        $query = $this->conn->prepare("DELETE FROM Admins WHERE ID = ?");
+        $query = $this->conn->prepare("DELETE FROM admins WHERE id = ?");
         $query->bind_param("s", $id);
         $success = $query->execute();
 
         return $success ? $this->responseSuccess("Admin deleted successfully") : $this->responseError("Failed to delete Admin");
     }
+
+    public function getAllTickets(){
+        $query = $this->conn->prepare("SELECT user_email, subject, description, ticket_time FROM tickets ORDER BY created_at DESC");
+        $query->execute();
+        $result = $query->get_result();
+
+        $tickets = [];
+        while ($ticket = $result->fetch_assoc()) {
+            $tickets[] = $ticket;
+        }
+
+        return !empty($tickets)
+            ? $this->responseSuccess("Tickets retrieved successfully.", $tickets): $this->responseError("No tickets found.");
+    }
+
 }
 ?>
