@@ -50,15 +50,15 @@ class User
     if ($success) {
         return $this->responseSuccess("User added successfully", [
             "id" => $this->conn->insert_id,
+            "name" => $name,
             "email" => $email,
+            "phone_number" => $phone,
             "is_verified" => $is_verified
         ]);
     } else {
         return $this->responseError("Failed to signup User");
     }
 }
-
-
 
     public function signIn($email, $password)
     {
