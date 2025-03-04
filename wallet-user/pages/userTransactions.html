@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions Dashboard</title>
+    <link rel="stylesheet" href="../styling/walletMain.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h2 class="logo">Wallet</h2>
+        <ul class="nav-links">
+            <li><a href="./userMain.html">Wallet</a></li>
+            <li><a href="./userTransactions.html">Transactions</a></li>
+            <li><a href="./userTickets.html">Tickets</a></li>
+        </ul>
+
+        <a href="./userProfile.html">
+        <img src="../assets/images/profile.png" alt="Profile" class="profile-img">
+        </a>
+    </nav>
+
+    <div class="container">
+        <h1>Transaction Dashboard</h1>
+
+        <div class="transaction-list">
+            <h2>Recent Transactions</h2>
+            <ul>
+                
+            </ul>
+        </div>
+        <div class="transaction-form">
+            <h2>Make a Transaction</h2>
+            <form>
+                <div class="form-group">
+                    <label for="recipientEmail">Recipient Email</label>
+                    <input type="email" id="recipientEmail" name="recipientEmail" placeholder="Enter recipient's email" required>
+                </div>
+                <div class="form-group">
+                    <label for="recipientWallet">Recipient Wallet Name</label>
+                    <input type="text" id="recipientWallet" name="recipientWallet" placeholder="Enter recipient's wallet name" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+                </div>
+                <button type="submit" class="confirm-btn">Confirm</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

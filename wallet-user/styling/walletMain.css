@@ -100,6 +100,81 @@ h1 {
     background: #0056b3;
 }
 
+.transaction-list {
+    margin-top: 50px;
+    text-align: left;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.transaction-list h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.transaction-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.transaction-list ul li {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.transaction-form {
+    margin-top: 50px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-form h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 25%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0992aa;
+}
+
+.confirm-btn {
+    width: 25%;
+    padding: 10px;
+    background-color: #0992aa;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirm-btn:hover {
+    background-color: #077f8c;
+}
+
 @media (max-width: 768px) {
     .navbar {
         padding: 10px;
@@ -143,6 +218,18 @@ h1 {
 
     .create-wallet-btn {
         width: 100%;
+    }
+
+    .transaction-list {
+        margin-top: 20px;
+    }
+
+    .transaction-form {
+        margin-top: 20px;
+    }
+
+    .confirm-btn {
+        width: 25%;
     }
 }
 
