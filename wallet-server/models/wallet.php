@@ -19,36 +19,45 @@ class Wallet
     }
 
     public function createWallet($userId, $walletName)
-    {
-        if (empty($userId) || empty($walletName)) {
-            return $this->responseError("User ID and wallet name are required.");
-        }
-
-        $checkQuery = $this->conn->prepare("SELECT id FROM wallets WHERE user_id = ? AND wallet_name = ?");
-        $checkQuery->bind_param("is", $userId, $walletName);
-        $checkQuery->execute();
-        $checkResult = $checkQuery->get_result();
-
-        if ($checkResult->num_rows > 0) {
-            return $this->responseError("Wallet name already exists.");
-        }
-
-        $balance = 0;
-        $query = $this->conn->prepare("INSERT INTO wallets (user_id, wallet_name, balance) VALUES (?, ?, ?)");
-        $query->bind_param("isi", $userId, $walletName, $balance);
-        $success = $query->execute();
-
-        if ($success) {
-            return $this->responseSuccess("Wallet created successfully", [
-                "wallet_id" => $this->conn->insert_id,
-                "user_id" => $userId,
-                "wallet_name" => $walletName,
-                "balance" => $balance
-            ]);
-        } else {
-            return $this->responseError("Failed to create wallet.");
-        }
+{
+    if (empty($userId) || empty($walletName)) {
+        return $this->responseError("User ID and wallet name are required.");
     }
+
+    $userCheckQuery = $this->conn->prepare("SELECT id FROM users WHERE id = ?");
+    $userCheckQuery->bind_param("i", $userId);
+    $userCheckQuery->execute();
+    $userResult = $userCheckQuery->get_result();
+
+    if ($userResult->num_rows === 0) {
+        return $this->responseError("User not found.");
+    }
+
+    $checkQuery = $this->conn->prepare("SELECT id FROM wallets WHERE user_id = ? AND wallet_name = ?");
+    $checkQuery->bind_param("is", $userId, $walletName);
+    $checkQuery->execute();
+    $checkResult = $checkQuery->get_result();
+
+    if ($checkResult->num_rows > 0) {
+        return $this->responseError("Wallet name already exists.");
+    }
+
+    $balance = 0;
+    $query = $this->conn->prepare("INSERT INTO wallets (user_id, wallet_name, balance) VALUES (?, ?, ?)");
+    $query->bind_param("isi", $userId, $walletName, $balance);
+    $success = $query->execute();
+
+    if ($success) {
+        return $this->responseSuccess("Wallet created successfully", [
+            "wallet_id" => $this->conn->insert_id,
+            "user_id" => $userId,
+            "wallet_name" => $walletName,
+            "balance" => $balance
+        ]);
+    } else {
+        return $this->responseError("Failed to create wallet.");
+    }
+}
 
     public function deleteWallet($userId, $walletName)
     {
