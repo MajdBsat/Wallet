@@ -22,7 +22,7 @@ body {
 }
 
 nav {
-    background-color: #26008f;
+    background-color: #0992aa;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -151,7 +151,7 @@ h2 {
 }
 
 footer {
-    background-color: #1100ac;
+    background-color: #0992aa;
     color: white;
     text-align: center;
     padding: 20px;

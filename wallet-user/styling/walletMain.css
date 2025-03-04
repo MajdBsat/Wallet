@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Helvetica, Times, serif;
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: #0992aa;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+nav .nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.profile-img:hover {
+    opacity: 0.8;
+}
+
+.container {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 100px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.wallet-name-input {
+    margin-bottom: 20px;
+}
+
+.wallet-name-input input {
+    padding: 10px;
+    font-size: 16px;
+    width: 250px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.wallet-name-input input:focus {
+    outline: none;
+    border-color: #26008f;
+}
+
+.create-wallet-btn {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.create-wallet-btn:hover {
+    background: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .nav-links li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-btn {
+        margin-top: 10px;
+    }
+
+    .container {
+        margin-top: 120px;
+        padding: 0 15px;
+        padding-top: 140px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .wallet-name-input input {
+        width: 100%;
+    }
+
+    .create-wallet-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 12px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .nav-links li {
+        margin-left: 15px;
+    }
+
+    .profile-btn {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+
+    .container {
+        margin-top: 100px;
+        padding-top: 120px;
+    }
+
+    .wallet-name-input input {
+        width: 80%;
+    }
+
+    .create-wallet-btn {
+        width: 80%;
+    }
+}
