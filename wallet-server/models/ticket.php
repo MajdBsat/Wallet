@@ -18,20 +18,20 @@ class Ticket
         return json_encode(["status" => "error", "message" => $message]);
     }
 
-    public function createTicket($userName, $subject, $description)
+    public function createTicket($userEmail, $subject, $description)
     {
-        if (empty($userName) || empty($subject) || empty($description)) {
-            return $this->responseError("User name, subject, and description are required.");
+        if (empty($userEmail) || empty($subject) || empty($description)) {
+            return $this->responseError("User email, subject, and description are required.");
         }
 
-        $query = $this->conn->prepare("INSERT INTO tickets (user_name, subject, description) VALUES (?, ?, ?)");
-        $query->bind_param("sss", $userName, $subject, $description);
+        $query = $this->conn->prepare("INSERT INTO tickets (user_email, subject, description) VALUES (?, ?, ?)");
+        $query->bind_param("sss", $userEmail, $subject, $description);
         $success = $query->execute();
 
         if ($success) {
             return $this->responseSuccess("Ticket created successfully", [
                 "ticket_id" => $this->conn->insert_id,
-                "user_name" => $userName,
+                "user_email" => $userEmail,
                 "subject" => $subject,
                 "description" => $description
             ]);
