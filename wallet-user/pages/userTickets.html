@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Dashboard</title>
+    <link rel="stylesheet" href="../styling/walletMain.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h2 class="logo">Wallet</h2>
+        <ul class="nav-links">
+            <li><a href="./userMain.html">Wallet</a></li>
+            <li><a href="./userTransactions.html">Transactions</a></li>
+            <li><a href="./userTickets.html">Tickets</a></li>
+        </ul>
+
+        <a href="./userProfile.html">
+        <img src="../assets/images/profile.png" alt="Profile" class="profile-img">
+        </a>
+    </nav>
+
+    <div class="container">
+        <h1>Submit a Ticket</h1>
+        <form class="ticket-form">
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" class="large-input" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Ticket</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -58,8 +58,13 @@ nav .nav-links li {
 
 .container {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 60px;
     padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
 }
 
 h1 {
@@ -129,6 +134,7 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 40%;
 }
 
 .transaction-form h2 {
@@ -147,7 +153,7 @@ h1 {
 }
 
 .form-group input {
-    width: 25%;
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
@@ -160,7 +166,7 @@ h1 {
 }
 
 .confirm-btn {
-    width: 25%;
+    width: 100%;
     padding: 10px;
     background-color: #0992aa;
     color: white;
@@ -172,6 +178,66 @@ h1 {
 }
 
 .confirm-btn:hover {
+    background-color: #077f8c;
+}
+
+.ticket-form {
+    margin-top: 25px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    text-align: left;
+}
+
+.ticket-form .form-group {
+    margin-bottom: 20px;
+}
+
+.ticket-form .form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.ticket-form .form-group input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.ticket-form .form-group input:focus {
+    outline: none;
+    border-color: #0992aa;
+}
+
+.ticket-form .form-group .large-input {
+    height: 150px;
+    padding: 15px;
+    font-size: 18px;
+}
+
+.ticket-form .form-group .large-input:focus {
+    outline: none;
+    border-color: #0992aa;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #0992aa;
+    color: white;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
     background-color: #077f8c;
 }
 
@@ -209,7 +275,7 @@ h1 {
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .wallet-name-input input {
@@ -229,7 +295,22 @@ h1 {
     }
 
     .confirm-btn {
-        width: 25%;
+        width: 100%;
+    }
+
+    .ticket-form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .ticket-form .form-group input {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .submit-btn {
+        font-size: 16px;
+        padding: 12px;
     }
 }
 
@@ -262,5 +343,19 @@ h1 {
 
     .create-wallet-btn {
         width: 80%;
+    }
+
+    .ticket-form {
+        width: 80%;
+    }
+
+    .ticket-form .form-group input {
+        padding: 14px;
+        font-size: 17px;
+    }
+
+    .submit-btn {
+        font-size: 17px;
+        padding: 14px;
     }
 }
