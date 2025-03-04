@@ -10,20 +10,21 @@ include("../../models/Admin.php");
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$admin = new Admin($conn);
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($data["email"], $data["phone_number"], $data["password"])) {
+    if (isset($data["name"], $data["email"], $data["phone_number"], $data["password"])) {
+        $name = trim($data["name"]);
         $email = trim($data["email"]);
         $phoneNumber = trim($data["phone_number"]);
         $password = trim($data["password"]);
-        
-        echo $admin->signUp($email, $phoneNumber, $password);
+
+        $admin = new Admin($conn);
+        echo $admin->signUp($name, $email, $phoneNumber, $password);
     } else {
-        echo json_encode(["status" => "error", "message" => "Email, phone number, and password are required."]);
+        echo json_encode(["status" => "error", "message" => "Name, email, phone number, and password are required."]);
     }
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid request method."]);
 }
 
 ?>
+
