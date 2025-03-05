@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Tickets</title>
+    <link rel="stylesheet" href="../styling/styling.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h2 class="logo">Admin Panel</h2>
+        <ul class="nav-links">
+            <li><a href="./adminTickets.html">Tickets</a></li>
+            <li><a href="./adminAdmins.html">Admins</a></li>
+        </ul>
+        <a href="./adminProfile.html">
+            <img src="../../wallet-user/assets/images/profile.png" alt="Profile" class="profile-img">
+        </a>
+    </nav>
+
+    <div class="container">
+        <h1>Tickets Dashboard</h1>
+        
+        <div class="ticket-list">
+            <h2>All Submitted Tickets</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Payment Issue</td>
+                        <td>Pending</td>
+                        <td><button class="view-btn">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Account Locked</td>
+                        <td>Resolved</td>
+                        <td><button class="view-btn">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Withdrawal Request</td>
+                        <td>Pending</td>
+                        <td><button class="view-btn">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
