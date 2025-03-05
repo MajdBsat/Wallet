@@ -197,6 +197,53 @@ table td {
     color: #0992aa;
 }
 
+.admin-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.admin-list h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+table td {
+    background-color: #fff;
+}
+
+.view-btn {
+    background-color: #0992aa;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-btn:hover {
+    background-color: #077f8c;
+}
+
 @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -234,6 +281,16 @@ table td {
         padding: 5px 10px;
         font-size: 14px;
     }
+
+    .admin-list {
+        padding: 10px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 14px;
+    }
+
 }
 
 @media screen and (max-width: 480px) {
@@ -261,5 +318,9 @@ table td {
     .view-btn {
         padding: 4px 8px;
         font-size: 12px;
+    }
+
+    .admin-list h2 {
+        font-size: 20px;
     }
 }
